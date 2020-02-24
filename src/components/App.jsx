@@ -1,32 +1,55 @@
 import React from "react";
 
-class Form extends React.Component {
-    constructor(props) {
-        super(props);
-        
-        this.state = {
-        name: 'Name',
-        message: 'Message'
-        };
-        }
+class App extends React.Component {
+  constructor(props) {
+    super(props);
 
-        
-       render() {
-        return (
+    this.state = {
+      chirpName: "",
+      chirpMessage: "",
+      chirps: [
+        {
+          name: "Hallie",
+          message: "Yeet!"
+        },
+        {
+          name: "Nyya",
+          message: "Still I rise"
+        },
+        {
+          name: "Dustin",
+          message: "I like vroom vroom"
+        }
+      ]
+    };
+  }
+  handleChirpName(e) { 
+      this.setState({chirpName: e.target.value});
+     
+  }
+  handleChirpMessage(e) { 
+    this.setState({chirpMessage: e.target.value});
+  }
+  submitChirp(e) {}
+
+  render() {
+    return (
+      <div>
         <div>
-        <input
-        value={this.state.name}
-        onChange={(event) => { this.setState({ name: event.target.value })}} />
-        <button onClick={this.handleClick}>Submit</button>
-
-         <input
-        value={this.state.message}
-        onChange={(event) => { this.setState({ message: event.target.value })}} />
-        <button onClick={this.handleClick}>Submit</button>
+          <input type="text" onChange={e => this.handleChirpName(e)} />
+          <input type="text" onChange={e => this.handleChirpMessage(e)} />
         </div>
-        );
-        }
-        
-       }
-       
-       export default Form;
+        {this.state.chirps.map((chirp, id) => {
+          return (
+            <div key={id}>
+              <div>{chirp.message}</div>
+              <h1>{chirp.name}</h1>
+            </div>
+          );
+        })}
+      </div>
+    );
+  }
+}
+
+export default App;
